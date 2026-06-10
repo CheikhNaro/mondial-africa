@@ -25,7 +25,7 @@ function detectEnv() {
 
 const uBlockLinks = {
   chrome: {
-    url: 'https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm',
+    url: 'https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh',
     label: 'Installer uBlock Origin sur Chrome →',
   },
   edge: {
