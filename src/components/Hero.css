@@ -102,14 +102,14 @@
   letter-spacing: 1.8px;
   text-transform: uppercase;
   margin-bottom: 32px;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .hero-badge-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--amber);
+  background: linear-gradient(135deg, var(--amber), var(--teal));
   animation: pulse 2.4s ease-in-out infinite;
   box-shadow: 0 0 8px rgba(255, 149, 0, 0.7);
 }
@@ -120,7 +120,7 @@
 }
 
 .hero-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
   font-size: clamp(3.2rem, 8vw, 5.8rem);
   font-weight: 800;
   line-height: 0.96;
@@ -176,7 +176,7 @@
 }
 
 .stat-value {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
   font-size: 2.3rem;
   font-weight: 800;
   color: var(--amber);
@@ -190,7 +190,7 @@
   font-weight: 600;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .hero-stat-divider {
@@ -203,9 +203,9 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--amber);
-  color: #06080F;
-  font-family: 'Syne', sans-serif;
+  background: linear-gradient(135deg, var(--amber), var(--teal));
+  color: var(--bg);
+  font-family: 'Montserrat Alternates', sans-serif;
   font-weight: 700;
   font-size: 0.95rem;
   padding: 14px 34px;
@@ -218,7 +218,7 @@
 
 .hero-cta:hover {
   transform: translateY(-3px) scale(1.02);
-  background: var(--amber-bright);
+  background: linear-gradient(135deg, var(--amber-bright), var(--teal-dim));
   box-shadow: 0 8px 40px rgba(255, 149, 0, 0.55);
 }
 

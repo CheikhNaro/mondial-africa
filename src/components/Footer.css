@@ -7,10 +7,10 @@
   height: 3px;
   background: repeating-linear-gradient(
     90deg,
-    #9B6DFF 0px, #9B6DFF 12px,
-    #FF4133 12px, #FF4133 24px,
-    #27C97A 24px, #27C97A 36px,
-    #FF9500 36px, #FF9500 48px
+    var(--amber) 0px, var(--amber) 12px,
+    var(--teal) 12px, var(--teal) 24px,
+    var(--amber) 24px, var(--amber) 36px,
+    var(--teal) 36px, var(--teal) 48px
   );
   animation: kente-rev 7s linear infinite;
 }
@@ -32,7 +32,7 @@
 }
 
 .footer-logo {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
   font-size: 1.15rem;
   font-weight: 800;
   color: var(--text);
@@ -104,7 +104,7 @@
   color: var(--text-dim);
   letter-spacing: 0.6px;
   font-weight: 500;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .footer-copy {

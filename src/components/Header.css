@@ -1,24 +1,23 @@
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
-  background: rgba(6, 8, 15, 0.88);
+  width: 100%;
+  z-index: 10000;
+  background: #2b2e3d;
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-bottom: 1px solid var(--border-subtle);
+  left: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .header-kente {
   height: 3px;
   background: repeating-linear-gradient(
     90deg,
-    #FF9500 0px, #FF9500 12px,
-    #FFC340 12px, #FFC340 18px,
-    #27C97A 18px, #27C97A 30px,
-    #00CFAD 30px, #00CFAD 36px,
-    #FF4133 36px, #FF4133 48px,
-    #FF6B52 48px, #FF6B52 54px,
-    #FF9500 54px
+    var(--amber) 0px, var(--amber) 12px,
+    var(--teal) 12px, var(--teal) 24px,
+    var(--amber) 24px, var(--amber) 36px,
+    var(--teal) 36px, var(--teal) 48px
   );
   animation: kente-shift 5s linear infinite;
 }
@@ -32,7 +31,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
-  height: 60px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -54,7 +53,7 @@
 }
 
 .logo-text {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Montserrat Alternates', sans-serif;
   font-size: 1.18rem;
   font-weight: 800;
   color: var(--text);
@@ -85,15 +84,15 @@
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
   font-weight: 500;
-  color: var(--text-sub);
+  color: var(--text);
   transition: background 0.18s, color 0.18s;
   white-space: nowrap;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .nav-link:hover {
-  background: rgba(255, 149, 0, 0.1);
-  color: var(--amber);
+  background: none;
+  text-decoration: underline; color: var(--text);
 }
 
 .nav-icon {
