@@ -1,10 +1,19 @@
-import { useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { ExternalIcon } from './Icons';
 import './LinkCard.css';
 
 export default function LinkCard({ link, accentColor }) {
+  const [expanded, setExpanded] = useState(false);
+  const [long, setLong] = useState(false);
   const cardRef = useRef(null);
   const overlayRef = useRef(null);
+  const descRef = useRef(null);
+
+  useEffect(() => {
+    if (descRef.current) {
+      setLong(descRef.current.scrollHeight > descRef.current.clientHeight);
+    }
+  }, []);
 
   const onMouseMove = useCallback((e) => {
     const rect = cardRef.current.getBoundingClientRect();
@@ -19,6 +28,12 @@ export default function LinkCard({ link, accentColor }) {
   const onMouseLeave = useCallback(() => {
     overlayRef.current.style.setProperty('--opacity', '0');
   }, []);
+
+  function onExpand(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setExpanded(prev => !prev);
+  }
 
   return (
     <a
@@ -42,11 +57,19 @@ export default function LinkCard({ link, accentColor }) {
             </span>
           </div>
           <h3 className="link-name">{link.name}</h3>
-          <p className="link-desc">{link.description}</p>
-          <div className="link-url">
-            {link.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]}
-          </div>
+          <p ref={descRef} className={`link-desc ${expanded ? 'link-desc--expanded' : ''}`}>
+            {link.description}
+          </p>
         </div>
+
+        {long && (
+          <button className="link-card-expand" onClick={onExpand} type="button">
+            {expanded ? 'Réduire' : 'Lire plus'}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`link-expand-arrow ${expanded ? 'link-expand-arrow--up' : ''}`}>
+              <polyline points="6,9 12,15 18,9" />
+            </svg>
+          </button>
+        )}
       </div>
 
       <div ref={overlayRef} className="link-card-overlay" aria-hidden="true">
@@ -60,11 +83,19 @@ export default function LinkCard({ link, accentColor }) {
             </span>
           </div>
           <h3 className="link-name">{link.name}</h3>
-          <p className="link-desc">{link.description}</p>
-          <div className="link-url">
-            {link.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]}
-          </div>
+          <p className={`link-desc ${expanded ? 'link-desc--expanded' : ''}`}>
+            {link.description}
+          </p>
         </div>
+
+        {long && (
+          <button className="link-card-expand" onClick={onExpand} type="button">
+            {expanded ? 'Réduire' : 'Lire plus'}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`link-expand-arrow ${expanded ? 'link-expand-arrow--up' : ''}`}>
+              <polyline points="6,9 12,15 18,9" />
+            </svg>
+          </button>
+        )}
       </div>
     </a>
   );

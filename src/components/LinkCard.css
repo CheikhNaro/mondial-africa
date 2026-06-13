@@ -1,5 +1,6 @@
 .link-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   border-radius: var(--radius);
   overflow: hidden;
   position: relative;
@@ -7,6 +8,7 @@
   color: inherit;
   box-shadow: var(--shadow-card);
   transition: transform var(--duration) var(--easing), box-shadow var(--duration) var(--easing);
+  height: 100%;
 }
 
 .link-card:hover {
@@ -30,6 +32,10 @@
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--duration) var(--easing);
 }
 
 .link-card:hover .link-card-base {
@@ -49,6 +55,8 @@
   transition: opacity 0.15s;
   -webkit-mask: radial-gradient(350px 350px at var(--x, -100px) var(--y, -100px), #000 0%, transparent 55%);
   mask: radial-gradient(350px 350px at var(--x, -100px) var(--y, -100px), #000 0%, transparent 55%);
+  display: flex;
+  flex-direction: column;
 }
 
 .link-card-overlay .link-name {
@@ -64,11 +72,11 @@
 .link-card-inner {
   position: relative;
   z-index: 1;
-  padding: 20px;
+  padding: 20px 20px 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: 100%;
+  flex: 1;
 }
 
 .link-card-top-row {
@@ -119,20 +127,53 @@
   font-size: 0.82rem;
   color: var(--text-sub);
   line-height: 1.6;
-  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: -webkit-line-clamp 0.2s ease;
 }
 
-.link-url {
-  font-size: 0.68rem;
+.link-desc--expanded {
+  display: block;
+  overflow: visible;
+}
+
+.link-card-expand {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 20px 10px;
+  background: none;
+  border: none;
   color: var(--text-dim);
+  font-size: 0.72rem;
   font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 4px 10px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  font-variant-numeric: tabular-nums;
-  margin-top: 4px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color var(--duration) var(--easing);
+  position: relative;
+  z-index: 3;
+}
+
+.link-card-expand:hover {
+  color: var(--accent-bright);
+}
+
+.link-expand-arrow {
+  transition: transform 0.2s var(--easing);
+}
+
+.link-expand-arrow--up {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 600px) {
+  .link-card-inner {
+    padding: 16px 16px 8px;
+  }
+
+  .link-card-expand {
+    padding: 4px 16px 8px;
+  }
 }
