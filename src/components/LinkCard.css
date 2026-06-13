@@ -1,57 +1,47 @@
 .link-card {
   display: block;
   background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
   position: relative;
   box-shadow: var(--shadow-card);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  transition: transform var(--duration) var(--easing), box-shadow var(--duration) var(--easing), border-color var(--duration) var(--easing);
   text-decoration: none;
   color: inherit;
 }
 
-/* Left accent bar on hover */
-.link-card::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 14%;
-  height: 72%;
-  width: 3px;
-  background: var(--accent, var(--amber));
-  opacity: 0;
-  transition: opacity 0.22s;
-  border-radius: 0 2px 2px 0;
-}
-
-.link-card:hover::after {
-  opacity: 1;
-}
-
 .link-card:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elevated);
+  border-color: var(--border-hover);
+}
+
+.link-card:active {
+  transform: translateY(-1px);
 }
 
 .link-card--top {
-  border-color: rgba(255, 149, 0, 0.18);
-  background: linear-gradient(135deg, #0C1018, #0F1420);
+  border-color: rgba(94, 106, 210, 0.15);
+  background: linear-gradient(135deg, #141418, #16162a);
 }
 
-.top-glow {
+.link-card-glow {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  opacity: 0.85;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration) var(--easing);
+}
+
+.link-card:hover .link-card-glow {
+  opacity: 1;
 }
 
 .link-card-inner {
   position: relative;
   z-index: 1;
-  padding: 18px 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -62,49 +52,44 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 2px;
 }
 
 .link-badge {
-  font-size: 0.67rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 3px;
-  border: 1px solid;
-  letter-spacing: 0.8px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.4px;
   text-transform: uppercase;
-  font-family: 'Inter', sans-serif;
   white-space: nowrap;
 }
 
 .link-arrow {
-  width: 26px;
-  height: 26px;
-  border-radius: var(--radius-sm);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
   color: var(--text-dim);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: color 0.2s, transform 0.2s, background 0.2s, border-color 0.2s;
+  background: rgba(255, 255, 255, 0.03);
+  transition: color var(--duration) var(--easing), background var(--duration) var(--easing), transform var(--duration) var(--easing);
   flex-shrink: 0;
 }
 
 .link-card:hover .link-arrow {
-  color: var(--accent, var(--amber));
-  background: rgba(255, 149, 0, 0.1);
-  border-color: rgba(255, 149, 0, 0.28);
+  color: var(--accent, var(--accent));
+  background: rgba(94, 106, 210, 0.12);
   transform: translate(2px, -2px);
 }
 
 .link-name {
-  font-family: 'Montserrat Alternates', sans-serif;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text);
-  line-height: 1.2;
-  letter-spacing: -0.4px;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
 }
 
 .link-desc {
@@ -112,20 +97,19 @@
   color: var(--text-sub);
   line-height: 1.6;
   flex: 1;
-  font-weight: 400;
 }
 
 .link-url {
-  font-size: 0.67rem;
+  font-size: 0.68rem;
   color: var(--text-dim);
-  font-family: 'DM Mono', monospace;
-  font-weight: 400;
+  font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding: 5px 9px;
-  background: rgba(255, 255, 255, 0.018);
-  border-radius: 4px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.04);
-  letter-spacing: 0.2px;
+  font-variant-numeric: tabular-nums;
+  margin-top: 4px;
 }

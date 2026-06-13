@@ -1,3 +1,4 @@
+import { ExternalIcon } from './Icons';
 import './LinkCard.css';
 
 export default function LinkCard({ link, accentColor }) {
@@ -9,14 +10,16 @@ export default function LinkCard({ link, accentColor }) {
       className={`link-card ${link.top ? 'link-card--top' : ''}`}
       style={{ '--accent': accentColor }}
     >
-      {link.top && <div className="top-glow" style={{ background: accentColor }} />}
+      <div className="link-card-glow" style={{ background: `radial-gradient(ellipse at 50% 0%, ${accentColor}15 0%, transparent 70%)` }} />
 
       <div className="link-card-inner">
         <div className="link-card-top-row">
-          <span className="link-badge" style={{ color: accentColor, borderColor: `${accentColor}40`, background: `${accentColor}12` }}>
+          <span className="link-badge" style={{ color: accentColor, background: `${accentColor}10` }}>
             {link.badge}
           </span>
-          <span className="link-arrow">↗</span>
+          <span className="link-arrow">
+            <ExternalIcon size={14} />
+          </span>
         </div>
 
         <h3 className="link-name">{link.name}</h3>

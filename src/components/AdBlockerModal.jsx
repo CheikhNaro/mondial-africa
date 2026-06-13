@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { ShieldIcon, CheckIcon, ExternalIcon, ArrowDownIcon } from './Icons';
 import './AdBlockerModal.css';
 
 function detectEnv() {
@@ -26,41 +27,27 @@ function detectEnv() {
 const uBlockLinks = {
   chrome: {
     url: 'https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh',
-    label: 'Installer uBlock Origin sur Chrome →',
+    label: 'Installer uBlock Origin',
   },
   edge: {
     url: 'https://microsoftedge.microsoft.com/addons/detail/ublock-origin/odfafepnkmbhccpbejgmiehpchacaeak',
-    label: 'Installer uBlock Origin sur Edge →',
+    label: 'Installer uBlock Origin',
   },
   firefox: {
     url: 'https://addons.mozilla.org/fr/firefox/addon/ublock-origin/',
-    label: 'Installer uBlock Origin sur Firefox →',
+    label: 'Installer uBlock Origin',
   },
 };
 
 const braveLinks = [
-  {
-    key: 'desktop',
-    url: 'https://brave.com/fr/download/',
-    icon: '💻',
-    label: 'PC / Mac',
-  },
-  {
-    key: 'android',
-    url: 'https://play.google.com/store/apps/details?id=com.brave.browser&hl=fr',
-    icon: '🤖',
-    label: 'Android',
-  },
-  {
-    key: 'ios',
-    url: 'https://apps.apple.com/fr/app/brave-private-web-browser/id1052879175',
-    icon: '🍎',
-    label: 'iPhone',
-  },
+  { key: 'desktop', url: 'https://brave.com/fr/download/', label: 'PC / Mac' },
+  { key: 'android', url: 'https://play.google.com/store/apps/details?id=com.brave.browser&hl=fr', label: 'Android' },
+  { key: 'ios', url: 'https://apps.apple.com/fr/app/brave-private-web-browser/id1052879175', label: 'iPhone' },
 ];
 
 export default function AdBlockerModal() {
   const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
   const { device, browser } = detectEnv();
   const alreadyProtected = browser === 'brave';
   const ublock = uBlockLinks[browser];
@@ -73,103 +60,104 @@ export default function AdBlockerModal() {
   }, []);
 
   function handleDismiss() {
-    setVisible(false);
+    setDismissed(true);
+    setTimeout(() => setVisible(false), 200);
   }
 
   if (!visible) return null;
 
   return (
-    <div className="modal-overlay" onClick={handleDismiss}>
+    <div className={`modal-overlay ${dismissed ? 'modal-overlay--exiting' : ''}`} onClick={handleDismiss}>
       <div className="modal-box" onClick={e => e.stopPropagation()}>
-        <div className="modal-kente-top" />
+        <div className="modal-glow" />
 
-        <div className="modal-header">
-          <span className="modal-device-icon">{alreadyProtected ? '🦁' : '🛡️'}</span>
-          <div>
+        <div className="modal-brand">
+          <div className="modal-brand-dot" />
+          <span className="modal-brand-name">Mondial-<strong>Africa</strong></span>
+        </div>
+
+        <div className={`modal-header ${alreadyProtected ? 'modal-header--success' : ''}`}>
+          <div className="modal-header-icon">
+            {alreadyProtected ? <CheckIcon size={20} /> : <ShieldIcon size={20} />}
+          </div>
+          <div className="modal-header-text">
             <h2 className="modal-title">
-              {alreadyProtected ? 'Déjà protégé !' : 'Bloque les pubs d\'abord'}
+              {alreadyProtected ? 'Navigation protégée' : 'Protège ton streaming'}
             </h2>
             <p className="modal-subtitle">
               {alreadyProtected
-                ? 'Brave Browser bloque tout automatiquement.'
-                : 'Indispensable pour profiter du streaming sans coupure'}
+                ? 'Brave bloque pubs et trackers automatiquement'
+                : 'Les bloqueurs de pub sont obligatoires pour profiter des sites sans coupure'}
             </p>
           </div>
         </div>
 
-        {alreadyProtected && (
-          <div className="modal-shield modal-shield--success">
-            <div className="shield-icon">✅</div>
-            <p className="modal-description">
-              Brave bloque automatiquement toutes les pubs et trackers. Tu peux profiter du streaming sans aucune interruption.
-            </p>
-          </div>
-        )}
-
-        {/* uBlock : 1 clic pour activer sur le navigateur actuel */}
-        {showUblockSection && (
-          <div className="modal-section">
-            <div className="modal-section-label">
-              <span className="section-badge section-badge--red">⚡ 1 CLIC</span>
-              <span>Active uBlock Origin sur ton navigateur</span>
+        <div className="modal-body">
+          {alreadyProtected && (
+            <div className="modal-message modal-message--success">
+              <CheckIcon size={15} />
+              <span>Tu es déjà protégé. Brave bloque tout automatiquement. Bon streaming !</span>
             </div>
-            <a
-              href={ublock.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="modal-btn-ublock"
-            >
-              {ublock.label}
-            </a>
-          </div>
-        )}
+          )}
 
-        {/* iOS : uBlock non disponible sur Safari */}
-        {showIosNote && (
-          <div className="modal-shield">
-            <div className="shield-icon">ℹ️</div>
-            <p className="modal-description">
-              uBlock Origin n&apos;est pas disponible sur Safari iOS. La meilleure option est <strong>Brave Browser</strong> ci-dessous — il bloque tout nativement.
-            </p>
-          </div>
-        )}
-
-        {/* Séparateur si les deux sections sont visibles */}
-        {showUblockSection && (
-          <div className="modal-divider"><span>ou mieux encore, passe sur Brave</span></div>
-        )}
-
-        {/* Brave : 3 plateformes, device actuel mis en valeur */}
-        {!alreadyProtected && (
-          <div className="modal-section">
-            <div className="modal-section-label">
-              <span className="section-badge section-badge--orange">🦁 RECOMMANDÉ</span>
-              <span>Brave Browser — zéro pub, zéro configuration</span>
+          {showUblockSection && (
+            <div className="modal-section">
+              <div className="modal-section-label">
+                <span className="modal-tag modal-tag--accent">Rapide</span>
+                <span>Extension pour {browser === 'chrome' ? 'Chrome' : browser === 'firefox' ? 'Firefox' : 'Edge'}</span>
+              </div>
+              <a href={ublock.url} target="_blank" rel="noopener noreferrer" className="modal-btn modal-btn--primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9,18 15,12 9,6" />
+                </svg>
+                {ublock.label}
+              </a>
             </div>
-            <div className="modal-brave-grid">
-              {braveLinks.map(link => (
-                <a
-                  key={link.key}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`modal-brave-btn${device === link.key ? ' modal-brave-btn--active' : ''}`}
-                >
-                  <span>{link.icon}</span>
-                  <span>{link.label}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
+          )}
 
-        <div className="modal-actions">
-          <button className="modal-btn-secondary" onClick={handleDismiss}>
-            {alreadyProtected ? 'Parfait, continuer →' : 'J\'ai déjà un bloqueur, continuer'}
+          {showIosNote && (
+            <div className="modal-message">
+              <span>uBlock Origin n'est pas disponible sur iOS. Passe sur <strong>Brave Browser</strong> qui bloque tout nativement.</span>
+            </div>
+          )}
+
+          {showUblockSection && (
+            <div className="modal-divider">
+              <span>Option recommandée</span>
+            </div>
+          )}
+
+          {!alreadyProtected && (
+            <div className="modal-section">
+              <div className="modal-section-label">
+                <span className="modal-tag modal-tag--brand">Recommandé</span>
+                <span>Brave — bloqueur intégré, zéro config</span>
+              </div>
+              <div className="modal-grid">
+                {braveLinks.map(link => (
+                  <a
+                    key={link.key}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`modal-grid-btn${device === link.key ? ' modal-grid-btn--active' : ''}`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="modal-footer">
+          <button className="modal-btn-ghost" onClick={handleDismiss} type="button">
+            {alreadyProtected ? 'Accéder au catalogue' : 'J\'ai déjà un bloqueur'}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9,18 15,12 9,6" />
+            </svg>
           </button>
         </div>
-
-        <div className="modal-kente-bottom" />
       </div>
     </div>
   );

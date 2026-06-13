@@ -6,8 +6,6 @@ export default function Hero({ totalLinks }) {
       <div className="hero-bg">
         <div className="hero-orb hero-orb--1" />
         <div className="hero-orb hero-orb--2" />
-        <div className="hero-orb hero-orb--3" />
-        <div className="hero-pattern" />
       </div>
 
       <div className="hero-content">
@@ -22,37 +20,34 @@ export default function Hero({ totalLinks }) {
         </h1>
 
         <p className="hero-subtitle">
-          Films, séries, sport et TV en direct — tout ce dont tu as besoin,<br />
+          Films, séries, sport et TV en direct — tout ce dont tu as besoin,
           classé et prêt à l'emploi. Zéro inscription.
         </p>
 
         <div className="hero-stats">
           <div className="hero-stat">
             <span className="stat-value">{totalLinks}+</span>
-            <span className="stat-label">Sites de streaming</span>
+            <span className="stat-label">Sites</span>
           </div>
           <div className="hero-stat-divider" />
           <div className="hero-stat">
-            <span className="stat-value">4</span>
+            <span className="stat-value">6</span>
             <span className="stat-label">Catégories</span>
           </div>
           <div className="hero-stat-divider" />
           <div className="hero-stat">
             <span className="stat-value">100%</span>
-            <span className="stat-label">Sans inscription</span>
+            <span className="stat-label">Gratuit</span>
           </div>
         </div>
 
         <a href="#live-tv" className="hero-cta">
           Explorer le catalogue
-          <span className="hero-cta-arrow">↓</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="hero-cta-arrow">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <polyline points="19,12 12,19 5,12" />
+          </svg>
         </a>
-      </div>
-
-      <div className="hero-adinkra">
-        <div className="adinkra-sym">✦</div>
-        <div className="adinkra-sym">◈</div>
-        <div className="adinkra-sym">✦</div>
       </div>
     </div>
   );
